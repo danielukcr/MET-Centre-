@@ -1,593 +1,433 @@
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Met Police Logging Centre</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        :root {
-            --met-blue: #003e6b;
-            --met-light-blue: #1f6fb2;
-            --met-grey: #f2f4f7;
-            --met-dark: #111827;
-        }
+<meta charset="UTF-8">
+<title>Metropolitan Police Logging Centre</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        * {
-            box-sizing: border-box;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        }
+<style>
+    body {
+        margin: 0;
+        background: #00264d;
+        font-family: Arial, Helvetica, sans-serif;
+        color: #000;
+    }
 
-        body {
-            margin: 0;
-            background: #0b1724;
-            color: #fff;
-        }
+    header {
+        background: #003366;
+        color: #fff;
+        padding: 12px 20px;
+        border-bottom: 4px solid #001a33;
+    }
 
-        .app-shell {
-            max-width: 1200px;
-            margin: 0 auto;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
+    header h1 {
+        margin: 0;
+        font-size: 22px;
+        font-weight: bold;
+        letter-spacing: 0.03em;
+    }
 
-        header {
-            background: linear-gradient(90deg, var(--met-blue), var(--met-light-blue));
-            padding: 18px 24px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
+    header small {
+        display: block;
+        margin-top: 4px;
+        font-size: 12px;
+        opacity: 0.9;
+    }
 
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+    .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 20px;
+    }
 
-        .brand-badge {
-            width: 44px;
-            height: 44px;
-            border-radius: 8px;
-            border: 2px solid #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 18px;
-        }
+    .nav-tabs {
+        display: flex;
+        gap: 6px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+    }
 
-        .brand-text-main {
-            font-weight: 700;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            font-size: 18px;
-        }
+    .nav-tabs button {
+        background: #e6e6e6;
+        border: 2px solid #003366;
+        padding: 10px 16px;
+        font-size: 14px;
+        cursor: pointer;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
 
-        .brand-text-sub {
-            font-size: 12px;
-            opacity: 0.8;
-        }
+    .nav-tabs button.active {
+        background: #003366;
+        color: #fff;
+    }
 
-        .status-pill {
-            padding: 8px 14px;
-            border-radius: 999px;
-            background: rgba(15, 118, 110, 0.2);
-            border: 1px solid #22c55e;
-            font-size: 13px;
-        }
+    .section {
+        display: none;
+        background: #f2f2f2;
+        border: 3px solid #003366;
+        padding: 20px;
+        margin-bottom: 20px;
+    }
 
-        main {
-            flex: 1;
-            padding: 16px;
-            background: radial-gradient(circle at top, #1f2937 0, #020617 55%);
-        }
+    .section.active {
+        display: block;
+    }
 
-        .card {
-            background: rgba(15, 23, 42, 0.95);
-            border-radius: 16px;
-            border: 1px solid rgba(148, 163, 184, 0.4);
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
+    .section h2 {
+        margin-top: 0;
+        font-size: 18px;
+        border-bottom: 2px solid #003366;
+        padding-bottom: 6px;
+        font-weight: bold;
+    }
 
-        .tab-bar {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 14px;
+    }
 
-        .tab-button {
-            flex: 1 1 180px;
-            padding: 12px 10px;
-            border-radius: 999px;
-            border: 1px solid rgba(148, 163, 184, 0.6);
-            background: rgba(15, 23, 42, 0.9);
-            color: #e5e7eb;
-            font-size: 14px;
-            text-align: center;
-            cursor: pointer;
-            user-select: none;
-        }
+    label {
+        font-size: 13px;
+        font-weight: bold;
+        text-transform: uppercase;
+        margin-bottom: 4px;
+        display: block;
+    }
 
-        .tab-button.active {
-            background: var(--met-light-blue);
-            border-color: #fff;
-            color: #fff;
-            font-weight: 600;
-        }
+    input, textarea, select {
+        width: 100%;
+        padding: 10px;
+        border: 2px solid #003366;
+        background: #fff;
+        font-size: 14px;
+    }
 
-        .forms-container {
-            margin-top: 8px;
-        }
+    textarea {
+        height: 80px;
+        resize: vertical;
+    }
 
-        .form-section {
-            display: none;
-        }
+    .actions {
+        margin-top: 20px;
+        display: flex;
+        gap: 10px;
+    }
 
-        .form-section.active {
-            display: block;
-        }
+    .btn {
+        padding: 12px 18px;
+        border: 2px solid #003366;
+        background: #e6e6e6;
+        font-weight: bold;
+        cursor: pointer;
+        text-transform: uppercase;
+    }
 
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 12px;
-        }
+    .btn-primary {
+        background: #003366;
+        color: #fff;
+    }
 
-        .field {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
+    #status {
+        margin-top: 10px;
+        font-size: 14px;
+        font-weight: bold;
+    }
 
-        .field label {
-            font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
-            color: #cbd5f5;
-        }
-
-        .field input,
-        .field textarea,
-        .field select {
-            padding: 10px 12px;
-            border-radius: 10px;
-            border: 1px solid rgba(148, 163, 184, 0.7);
-            background: rgba(15, 23, 42, 0.9);
-            color: #e5e7eb;
-            font-size: 14px;
-        }
-
-        .field textarea {
-            min-height: 80px;
-            resize: vertical;
-        }
-
-        .field input:focus,
-        .field textarea:focus,
-        .field select:focus {
-            outline: none;
-            border-color: var(--met-light-blue);
-            box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.6);
-        }
-
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
-        }
-
-        .section-title {
-            font-size: 16px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-        }
-
-        .section-tag {
-            font-size: 12px;
-            padding: 4px 10px;
-            border-radius: 999px;
-            border: 1px solid rgba(148, 163, 184, 0.7);
-            background: rgba(15, 23, 42, 0.9);
-        }
-
-        .actions-row {
-            margin-top: 12px;
-            display: flex;
-            justify-content: flex-end;
-            gap: 10px;
-        }
-
-        .btn {
-            padding: 12px 18px;
-            border-radius: 999px;
-            border: none;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            user-select: none;
-        }
-
-        .btn-primary {
-            background: var(--met-light-blue);
-            color: #fff;
-        }
-
-        .btn-secondary {
-            background: rgba(15, 23, 42, 0.9);
-            color: #e5e7eb;
-            border: 1px solid rgba(148, 163, 184, 0.7);
-        }
-
-        .status-bar {
-            margin-top: 8px;
-            font-size: 13px;
-            min-height: 18px;
-        }
-
-        .status-bar span {
-            display: inline-block;
-            padding: 4px 10px;
-            border-radius: 999px;
-        }
-
-        .status-ok {
-            background: rgba(22, 163, 74, 0.2);
-            border: 1px solid #22c55e;
-            color: #bbf7d0;
-        }
-
-        .status-error {
-            background: rgba(220, 38, 38, 0.2);
-            border: 1px solid #ef4444;
-            color: #fecaca;
-        }
-
-        footer {
-            padding: 10px 16px;
-            font-size: 11px;
-            color: #9ca3af;
-            text-align: right;
-        }
-
-        @media (min-height: 700px) {
-            header {
-                padding: 22px 28px;
-            }
-            .tab-button {
-                padding: 14px 12px;
-                font-size: 15px;
-            }
-            .btn {
-                padding: 14px 22px;
-                font-size: 15px;
-            }
-        }
-    </style>
+    footer {
+        text-align: right;
+        padding: 10px 20px;
+        font-size: 11px;
+        color: #fff;
+        background: #001a33;
+        border-top: 3px solid #003366;
+    }
+</style>
 </head>
+
 <body>
-<div class="app-shell">
-    <header>
-        <div class="brand">
-            <div class="brand-badge">MP</div>
-            <div>
-                <div class="brand-text-main">Metropolitan Police</div>
-                <div class="brand-text-sub">Operational Logging Centre (Training / Simulation)</div>
-            </div>
-        </div>
-        <div class="status-pill">
-            Touchscreen Ready · Internal Use Only
-        </div>
-    </header>
 
-    <main>
-        <div class="card">
-            <div class="tab-bar">
-                <button class="tab-button active" data-target="pocal">POCAL / Collision Report</button>
-                <button class="tab-button" data-target="stopsearch">Stop &amp; Search Log</button>
-                <button class="tab-button" data-target="useforce">Use of Force</button>
-                <button class="tab-button" data-target="call999">999 Call Report</button>
-            </div>
+<header>
+    <h1>Metropolitan Police Logging Centre</h1>
+    <small>Training / Simulation Interface — 2000s Intranet Style</small>
+</header>
 
-            <div class="forms-container">
-                <!-- POCAL / Collision Report -->
-                <section id="pocal" class="form-section active">
-                    <div class="section-header">
-                        <div class="section-title">POCAL / Collision Report</div>
-                        <div class="section-tag">Reference: POCAL</div>
-                    </div>
-                    <form id="form-pocal">
-                        <div class="form-grid">
-                            <div class="field">
-                                <label for="pocal_officer_names">Officer name(s)</label>
-                                <input id="pocal_officer_names" name="officer_names" type="text" autocomplete="off">
-                            </div>
-                            <div class="field">
-                                <label for="pocal_officer_collars">Officer collar(s)</label>
-                                <input id="pocal_officer_collars" name="officer_collars" type="text" autocomplete="off">
-                            </div>
-                            <div class="field">
-                                <label for="pocal_location">Location of collision</label>
-                                <input id="pocal_location" name="location" type="text">
-                            </div>
-                            <div class="field">
-                                <label for="pocal_time">Time of collision</label>
-                                <input id="pocal_time" name="time" type="time">
-                            </div>
-                            <div class="field">
-                                <label for="pocal_vehicles">Vehicles involved</label>
-                                <textarea id="pocal_vehicles" name="vehicles"></textarea>
-                            </div>
-                            <div class="field">
-                                <label for="pocal_summary">Summary / circumstances</label>
-                                <textarea id="pocal_summary" name="summary"></textarea>
-                            </div>
-                            <div class="field">
-                                <label for="pocal_outcome">Outcome of collision</label>
-                                <textarea id="pocal_outcome" name="outcome"></textarea>
-                            </div>
-                        </div>
-                        <div class="actions-row">
-                            <button type="reset" class="btn btn-secondary">Clear</button>
-                            <button type="submit" class="btn btn-primary">Submit to Discord</button>
-                        </div>
-                    </form>
-                </section>
+<div class="container">
 
-                <!-- Stop & Search -->
-                <section id="stopsearch" class="form-section">
-                    <div class="section-header">
-                        <div class="section-title">Stop &amp; Search Log</div>
-                        <div class="section-tag">Power: Stop &amp; Search</div>
-                    </div>
-                    <form id="form-stopsearch">
-                        <div class="form-grid">
-                            <div class="field">
-                                <label for="ss_officer_names">Officer name(s)</label>
-                                <input id="ss_officer_names" name="officer_names" type="text">
-                            </div>
-                            <div class="field">
-                                <label for="ss_officer_collars">Officer collar(s)</label>
-                                <input id="ss_officer_collars" name="officer_collars" type="text">
-                            </div>
-                            <div class="field">
-                                <label for="ss_reason">Reason for search</label>
-                                <textarea id="ss_reason" name="reason"></textarea>
-                            </div>
-                            <div class="field">
-                                <label for="ss_subject">Person being searched</label>
-                                <input id="ss_subject" name="subject" type="text">
-                            </div>
-                            <div class="field">
-                                <label for="ss_grounds">Grounds</label>
-                                <textarea id="ss_grounds" name="grounds"></textarea>
-                            </div>
-                            <div class="field">
-                                <label for="ss_items_found">Items found</label>
-                                <textarea id="ss_items_found" name="items_found"></textarea>
-                            </div>
-                            <div class="field">
-                                <label for="ss_outcome">Outcome</label>
-                                <textarea id="ss_outcome" name="outcome"></textarea>
-                            </div>
-                        </div>
-                        <div class="actions-row">
-                            <button type="reset" class="btn btn-secondary">Clear</button>
-                            <button type="submit" class="btn btn-primary">Submit to Discord</button>
-                        </div>
-                    </form>
-                </section>
+    <div class="nav-tabs">
+        <button class="active" data-target="pocal">POCAL</button>
+        <button data-target="stopsearch">Stop & Search</button>
+        <button data-target="useforce">Use of Force</button>
+        <button data-target="call999">999 Call Report</button>
+    </div>
 
-                <!-- Use of Force -->
-                <section id="useforce" class="form-section">
-                    <div class="section-header">
-                        <div class="section-title">Use of Force</div>
-                        <div class="section-tag">Tactical Options</div>
-                    </div>
-                    <form id="form-useforce">
-                        <div class="form-grid">
-                            <div class="field">
-                                <label for="uf_item_used">Item used</label>
-                                <input id="uf_item_used" name="item_used" type="text" placeholder="e.g. Baton, PAVA, Taser (training)">
-                            </div>
-                            <div class="field">
-                                <label for="uf_reason">Reason</label>
-                                <textarea id="uf_reason" name="reason"></textarea>
-                            </div>
-                            <div class="field">
-                                <label for="uf_officer_collar">Officer collar</label>
-                                <input id="uf_officer_collar" name="officer_collar" type="text">
-                            </div>
-                            <div class="field">
-                                <label for="uf_officer_name">Officer name</label>
-                                <input id="uf_officer_name" name="officer_name" type="text">
-                            </div>
-                            <div class="field">
-                                <label for="uf_outcome">Outcome</label>
-                                <textarea id="uf_outcome" name="outcome"></textarea>
-                            </div>
-                        </div>
-                        <div class="actions-row">
-                            <button type="reset" class="btn btn-secondary">Clear</button>
-                            <button type="submit" class="btn btn-primary">Submit to Discord</button>
-                        </div>
-                    </form>
-                </section>
-
-                <!-- 999 Call Report -->
-                <section id="call999" class="form-section">
-                    <div class="section-header">
-                        <div class="section-title">999 Call Report</div>
-                        <div class="section-tag">Emergency Call Log</div>
-                    </div>
-                    <form id="form-call999">
-                        <div class="form-grid">
-                            <div class="field">
-                                <label for="c_time_arrival">Time on arrival</label>
-                                <input id="c_time_arrival" name="time_arrival" type="time">
-                            </div>
-                            <div class="field">
-                                <label for="c_reason">Reason for call</label>
-                                <textarea id="c_reason" name="reason"></textarea>
-                            </div>
-                            <div class="field">
-                                <label for="c_outcome">Outcome</label>
-                                <textarea id="c_outcome" name="outcome"></textarea>
-                            </div>
-                            <div class="field">
-                                <label for="c_officer_names">Officer name(s)</label>
-                                <input id="c_officer_names" name="officer_names" type="text">
-                            </div>
-                            <div class="field">
-                                <label for="c_officer_collars">Officer collar(s)</label>
-                                <input id="c_officer_collars" name="officer_collars" type="text">
-                            </div>
-                            <div class="field">
-                                <label for="c_vehicle_outcome">Outcome of car</label>
-                                <textarea id="c_vehicle_outcome" name="vehicle_outcome"></textarea>
-                            </div>
-                        </div>
-                        <div class="actions-row">
-                            <button type="reset" class="btn btn-secondary">Clear</button>
-                            <button type="submit" class="btn btn-primary">Submit to Discord</button>
-                        </div>
-                    </form>
-                </section>
+    <!-- POCAL -->
+    <div id="pocal" class="section active">
+        <h2>POCAL / Collision Report</h2>
+        <form id="form-pocal">
+            <div class="grid">
+                <div>
+                    <label>Officer Name(s)</label>
+                    <input id="pocal_names">
+                </div>
+                <div>
+                    <label>Officer Collar(s)</label>
+                    <input id="pocal_collars">
+                </div>
+                <div>
+                    <label>Time Logged</label>
+                    <input type="time" id="pocal_time">
+                </div>
+                <div>
+                    <label>Location</label>
+                    <input id="pocal_location">
+                </div>
+                <div>
+                    <label>Vehicles Involved</label>
+                    <textarea id="pocal_vehicles"></textarea>
+                </div>
+                <div>
+                    <label>Summary</label>
+                    <textarea id="pocal_summary"></textarea>
+                </div>
+                <div>
+                    <label>Outcome</label>
+                    <textarea id="pocal_outcome"></textarea>
+                </div>
             </div>
 
-            <div class="status-bar" id="status-bar">
-                <!-- Status messages appear here -->
+            <div class="actions">
+                <button type="reset" class="btn">Clear</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
             </div>
-        </div>
-    </main>
+        </form>
+    </div>
 
-    <footer>
-        This interface is a training / roleplay simulation and is not an official Metropolitan Police system.
-    </footer>
+    <!-- Stop & Search -->
+    <div id="stopsearch" class="section">
+        <h2>Stop & Search Log</h2>
+        <form id="form-stopsearch">
+            <div class="grid">
+                <div>
+                    <label>Officer Name(s)</label>
+                    <input id="ss_names">
+                </div>
+                <div>
+                    <label>Officer Collar(s)</label>
+                    <input id="ss_collars">
+                </div>
+                <div>
+                    <label>Time Logged</label>
+                    <input type="time" id="ss_time">
+                </div>
+                <div>
+                    <label>Reason</label>
+                    <textarea id="ss_reason"></textarea>
+                </div>
+                <div>
+                    <label>Person Searched</label>
+                    <input id="ss_subject">
+                </div>
+                <div>
+                    <label>Grounds</label>
+                    <textarea id="ss_grounds"></textarea>
+                </div>
+                <div>
+                    <label>Items Found</label>
+                    <textarea id="ss_items"></textarea>
+                </div>
+                <div>
+                    <label>Outcome</label>
+                    <textarea id="ss_outcome"></textarea>
+                </div>
+            </div>
+
+            <div class="actions">
+                <button type="reset" class="btn">Clear</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Use of Force -->
+    <div id="useforce" class="section">
+        <h2>Use of Force Report</h2>
+        <form id="form-useforce">
+            <div class="grid">
+                <div>
+                    <label>Item Used</label>
+                    <input id="uf_item">
+                </div>
+                <div>
+                    <label>Reason</label>
+                    <textarea id="uf_reason"></textarea>
+                </div>
+                <div>
+                    <label>Officer Collar</label>
+                    <input id="uf_collar">
+                </div>
+                <div>
+                    <label>Officer Name</label>
+                    <input id="uf_name">
+                </div>
+                <div>
+                    <label>Time Logged</label>
+                    <input type="time" id="uf_time">
+                </div>
+                <div>
+                    <label>Outcome</label>
+                    <textarea id="uf_outcome"></textarea>
+                </div>
+            </div>
+
+            <div class="actions">
+                <button type="reset" class="btn">Clear</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- 999 Call -->
+    <div id="call999" class="section">
+        <h2>999 Call Report</h2>
+        <form id="form-call999">
+            <div class="grid">
+                <div>
+                    <label>Time Logged</label>
+                    <input type="time" id="c_time">
+                </div>
+                <div>
+                    <label>Reason for Call</label>
+                    <textarea id="c_reason"></textarea>
+                </div>
+                <div>
+                    <label>Outcome</label>
+                    <textarea id="c_outcome"></textarea>
+                </div>
+                <div>
+                    <label>Officer Name(s)</label>
+                    <input id="c_names">
+                </div>
+                <div>
+                    <label>Officer Collar(s)</label>
+                    <input id="c_collars">
+                </div>
+                <div>
+                    <label>Outcome of Car</label>
+                    <textarea id="c_vehicle"></textarea>
+                </div>
+            </div>
+
+            <div class="actions">
+                <button type="reset" class="btn">Clear</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+
+    <div id="status"></div>
+
 </div>
 
+<footer>
+    This interface is a training simulation and not an official Metropolitan Police system.
+</footer>
+
 <script>
-    // IMPORTANT: if you rotate webhook, update this constant.
-    const DISCORD_WEBHOOK_URL =
-        "https://discord.com/api/webhooks/1520860615214891298/q1lJ4Y3cSxz0WiGVUHPgSZO8IfwZP_ctxhtkL4K3zw41hFGRuKHlUik5v0VXEtAm8mnf";
+const WEBHOOK = "https://discord.com/api/webhooks/1520860615214891298/q1lJ4Y3cSxz0WiGVUHPgSZO8IfwZP_ctxhtkL4K3zw41hFGRuKHlUik5v0VXEtAm8mnf";
 
-    const statusBar = document.getElementById("status-bar");
+function switchTab(target) {
+    document.querySelectorAll(".nav-tabs button").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.target === target);
+    });
 
-    function setStatus(message, ok = true) {
-        if (!message) {
-            statusBar.innerHTML = "";
-            return;
-        }
-        const cls = ok ? "status-ok" : "status-error";
-        statusBar.innerHTML = `<span class="${cls}">${message}</span>`;
+    document.querySelectorAll(".section").forEach(sec => {
+        sec.classList.toggle("active", sec.id === target);
+    });
+
+    document.getElementById("status").innerHTML = "";
+}
+
+document.querySelectorAll(".nav-tabs button").forEach(btn => {
+    btn.addEventListener("click", () => switchTab(btn.dataset.target));
+});
+
+async function send(title, fields) {
+    const lines = [`**${title}**`];
+    for (const [k, v] of Object.entries(fields)) {
+        if (v.trim() !== "") lines.push(`**${k}:** ${v}`);
     }
 
-    // Tab switching (touch-friendly)
-    document.querySelectorAll(".tab-button").forEach(btn => {
-        btn.addEventListener("click", () => {
-            const target = btn.dataset.target;
-
-            document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
-            btn.classList.add("active");
-
-            document.querySelectorAll(".form-section").forEach(sec => {
-                sec.classList.toggle("active", sec.id === target);
-            });
-
-            setStatus(""); // clear status when switching
-        });
+    const res = await fetch(WEBHOOK, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({content: lines.join("\n")})
     });
 
-    async function sendToDiscord(title, fields) {
-        const lines = [`**${title}**`];
-        for (const [label, value] of Object.entries(fields)) {
-            if (value && String(value).trim() !== "") {
-                lines.push(`**${label}:** ${value}`);
-            }
+    if (!res.ok) throw new Error("Webhook error");
+}
+
+function bindForm(id, title, map) {
+    const form = document.getElementById(id);
+    form.addEventListener("submit", async e => {
+        e.preventDefault();
+        document.getElementById("status").innerHTML = "Submitting…";
+
+        const fields = {};
+        for (const [label, element] of Object.entries(map)) {
+            fields[label] = document.getElementById(element).value;
         }
 
-        const payload = {
-            content: lines.join("\n")
-        };
-
-        const res = await fetch(DISCORD_WEBHOOK_URL, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(payload)
-        });
-
-        if (!res.ok) {
-            throw new Error(`Discord responded with ${res.status}`);
+        try {
+            await send(title, fields);
+            document.getElementById("status").innerHTML = "Submitted successfully.";
+            form.reset();
+        } catch {
+            document.getElementById("status").innerHTML = "Failed to submit.";
         }
-    }
-
-    function handleForm(formId, title, fieldMap) {
-        const form = document.getElementById(formId);
-        form.addEventListener("submit", async (e) => {
-            e.preventDefault();
-            setStatus("Sending log to Discord…");
-
-            const fields = {};
-            for (const [label, inputId] of Object.entries(fieldMap)) {
-                const el = document.getElementById(inputId);
-                fields[label] = el ? el.value : "";
-            }
-
-            try {
-                await sendToDiscord(title, fields);
-                setStatus("Log submitted to Discord successfully.", true);
-                form.reset();
-            } catch (err) {
-                console.error(err);
-                setStatus("Failed to submit to Discord. Check webhook URL / connection.", false);
-            }
-        });
-    }
-
-    // Wire up each form
-    handleForm("form-pocal", "POCAL / Collision Report", {
-        "Officer name(s)": "pocal_officer_names",
-        "Officer collar(s)": "pocal_officer_collars",
-        "Location of collision": "pocal_location",
-        "Time of collision": "pocal_time",
-        "Vehicles involved": "pocal_vehicles",
-        "Summary / circumstances": "pocal_summary",
-        "Outcome of collision": "pocal_outcome"
     });
+}
 
-    handleForm("form-stopsearch", "Stop & Search Log", {
-        "Officer name(s)": "ss_officer_names",
-        "Officer collar(s)": "ss_officer_collars",
-        "Reason for search": "ss_reason",
-        "Person being searched": "ss_subject",
-        "Grounds": "ss_grounds",
-        "Items found": "ss_items_found",
-        "Outcome": "ss_outcome"
-    });
+bindForm("form-pocal", "POCAL / Collision Report", {
+    "Officer Name(s)": "pocal_names",
+    "Officer Collar(s)": "pocal_collars",
+    "Time Logged": "pocal_time",
+    "Location": "pocal_location",
+    "Vehicles Involved": "pocal_vehicles",
+    "Summary": "pocal_summary",
+    "Outcome": "pocal_outcome"
+});
 
-    handleForm("form-useforce", "Use of Force", {
-        "Item used": "uf_item_used",
-        "Reason": "uf_reason",
-        "Officer collar": "uf_officer_collar",
-        "Officer name": "uf_officer_name",
-        "Outcome": "uf_outcome"
-    });
+bindForm("form-stopsearch", "Stop & Search Log", {
+    "Officer Name(s)": "ss_names",
+    "Officer Collar(s)": "ss_collars",
+    "Time Logged": "ss_time",
+    "Reason": "ss_reason",
+    "Person Searched": "ss_subject",
+    "Grounds": "ss_grounds",
+    "Items Found": "ss_items",
+    "Outcome": "ss_outcome"
+});
 
-    handleForm("form-call999", "999 Call Report", {
-        "Time on arrival": "c_time_arrival",
-        "Reason for call": "c_reason",
-        "Outcome": "c_outcome",
-        "Officer name(s)": "c_officer_names",
-        "Officer collar(s)": "c_officer_collars",
-        "Outcome of car": "c_vehicle_outcome"
-    });
+bindForm("form-useforce", "Use of Force Report", {
+    "Item Used": "uf_item",
+    "Reason": "uf_reason",
+    "Officer Collar": "uf_collar",
+    "Officer Name": "uf_name",
+    "Time Logged": "uf_time",
+    "Outcome": "uf_outcome"
+});
+
+bindForm("form-call999", "999 Call Report", {
+    "Time Logged": "c_time",
+    "Reason for Call": "c_reason",
+    "Outcome": "c_outcome",
+    "Officer Name(s)": "c_names",
+    "Officer Collar(s)": "c_collars",
+    "Outcome of Car": "c_vehicle"
+});
 </script>
+
 </body>
 </html>
