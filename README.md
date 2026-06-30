@@ -1,4 +1,9 @@
-<!DOCTYPE html>
+
+
+
+
+
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -156,45 +161,103 @@
 <div class="container">
 
     <div class="nav-tabs">
-        <button class="active" data-target="pocal">POCAL</button>
+        <button class="active" data-target="polcol">POLCOL</button>
         <button data-target="stopsearch">Stop & Search</button>
         <button data-target="useforce">Use of Force</button>
         <button data-target="call999">999 Call Report</button>
     </div>
 
-    <!-- POCAL -->
-    <div id="pocal" class="section active">
-        <h2>POCAL / Collision Report</h2>
-        <form id="form-pocal">
+    <!-- POLCOL -->
+    <div id="polcol" class="section active">
+        <h2>POLCOL REPORT</h2>
+        <form id="form-polcol">
             <div class="grid">
+
                 <div>
-                    <label>Officer Name(s)</label>
-                    <input id="pocal_names">
+                    <label>Date / Time</label>
+                    <input id="polcol_datetime" type="datetime-local">
                 </div>
-                <div>
-                    <label>Officer Collar(s)</label>
-                    <input id="pocal_collars">
-                </div>
-                <div>
-                    <label>Time Logged</label>
-                    <input type="time" id="pocal_time">
-                </div>
+
                 <div>
                     <label>Location</label>
-                    <input id="pocal_location">
+                    <input id="polcol_location">
                 </div>
+
                 <div>
-                    <label>Vehicles Involved</label>
-                    <textarea id="pocal_vehicles"></textarea>
+                    <label>Officer(s) Involved</label>
+                    <textarea id="polcol_officers" placeholder="Name, Collar Number"></textarea>
                 </div>
+
                 <div>
-                    <label>Summary</label>
-                    <textarea id="pocal_summary"></textarea>
+                    <label>Police Vehicle</label>
+                    <textarea id="polcol_police_vehicle" placeholder="Callsign / VRN"></textarea>
                 </div>
+
                 <div>
-                    <label>Outcome</label>
-                    <textarea id="pocal_outcome"></textarea>
+                    <label>Other Vehicle(s) Involved</label>
+                    <textarea id="polcol_other_vehicles" placeholder="Description / Registration"></textarea>
                 </div>
+
+                <div>
+                    <label>Injuries</label>
+                    <select id="polcol_injuries">
+                        <option>None</option>
+                        <option>Minor</option>
+                        <option>Serious</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label>Damage</label>
+                    <textarea id="polcol_damage"></textarea>
+                </div>
+
+                <div>
+                    <label>Summary of Incident</label>
+                    <textarea id="polcol_summary"></textarea>
+                </div>
+
+                <div>
+                    <label>Witnesses</label>
+                    <textarea id="polcol_witnesses" placeholder="Names or None"></textarea>
+                </div>
+
+                <div>
+                    <label>Body-Worn Video Available</label>
+                    <select id="polcol_bwv">
+                        <option>Yes</option>
+                        <option>No</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label>Road Conditions</label>
+                    <select id="polcol_road">
+                        <option>Dry</option>
+                        <option>Wet</option>
+                        <option>Icy</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label>Weather Conditions</label>
+                    <select id="polcol_weather">
+                        <option>Clear</option>
+                        <option>Rain</option>
+                        <option>Fog</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label>Actions Taken</label>
+                    <textarea id="polcol_actions" placeholder="First aid provided. Vehicle recovered. Supervisor informed. Scene preserved."></textarea>
+                </div>
+
+                <div>
+                    <label>Reporting Officer</label>
+                    <textarea id="polcol_reporting" placeholder="Name and Rank"></textarea>
+                </div>
+
             </div>
 
             <div class="actions">
@@ -389,14 +452,21 @@ function bindForm(id, title, map) {
     });
 }
 
-bindForm("form-pocal", "POCAL / Collision Report", {
-    "Officer Name(s)": "pocal_names",
-    "Officer Collar(s)": "pocal_collars",
-    "Time Logged": "pocal_time",
-    "Location": "pocal_location",
-    "Vehicles Involved": "pocal_vehicles",
-    "Summary": "pocal_summary",
-    "Outcome": "pocal_outcome"
+bindForm("form-polcol", "POLCOL Report", {
+    "Date/Time": "polcol_datetime",
+    "Location": "polcol_location",
+    "Officer(s) Involved": "polcol_officers",
+    "Police Vehicle": "polcol_police_vehicle",
+    "Other Vehicle(s) Involved": "polcol_other_vehicles",
+    "Injuries": "polcol_injuries",
+    "Damage": "polcol_damage",
+    "Summary of Incident": "polcol_summary",
+    "Witnesses": "polcol_witnesses",
+    "Body-Worn Video Available": "polcol_bwv",
+    "Road Conditions": "polcol_road",
+    "Weather Conditions": "polcol_weather",
+    "Actions Taken": "polcol_actions",
+    "Reporting Officer": "polcol_reporting"
 });
 
 bindForm("form-stopsearch", "Stop & Search Log", {
