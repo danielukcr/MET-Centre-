@@ -3,195 +3,140 @@
 
 
 
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Metropolitan Police Logging Centre</title>
+<title>Metropolitan Police Logging Centre – V2 (2026)</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
     :root {
-        --bg: #0f172a;
-        --card: #111827;
-        --accent: #2563eb;
-        --accent-soft: #1d4ed8;
-        --border: #1f2937;
-        --text-main: #e5e7eb;
-        --text-muted: #9ca3af;
-        --danger: #ef4444;
+        --bg: #0d1117;
+        --panel: #161b22;
+        --nav: #1d232f;
+        --accent: #3b82f6;
+        --accent-soft: #60a5fa;
+        --border: #30363d;
+        --text: #e6edf3;
+        --muted: #9ca3af;
         --success: #22c55e;
+        --error: #ef4444;
     }
 
     * {
         box-sizing: border-box;
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-family: "Segoe UI", system-ui, sans-serif;
     }
 
     body {
         margin: 0;
-        background: radial-gradient(circle at top, #1f2937 0, #020617 55%);
-        color: var(--text-main);
+        background: var(--bg);
+        color: var(--text);
     }
 
     header {
-        padding: 16px 24px;
+        background: #0b0f14;
+        padding: 18px 24px;
         border-bottom: 1px solid var(--border);
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background: #020617;
-        position: sticky;
-        top: 0;
-        z-index: 10;
     }
 
     .brand {
         display: flex;
         align-items: center;
-        gap: 12px;
+        gap: 14px;
     }
 
     .brand-logo {
-        width: 40px;
-        height: 40px;
+        width: 46px;
+        height: 46px;
         border-radius: 12px;
-        border: 2px solid var(--accent);
+        background: var(--accent);
         display: flex;
         align-items: center;
         justify-content: center;
         font-weight: 700;
-        font-size: 18px;
-        color: var(--accent);
+        font-size: 20px;
+        color: #fff;
     }
 
-    .brand-text-main {
+    .brand-title {
+        font-size: 20px;
         font-weight: 600;
-        font-size: 18px;
     }
 
-    .brand-text-sub {
+    .brand-sub {
         font-size: 12px;
-        color: var(--text-muted);
+        color: var(--muted);
     }
 
-    .header-status {
-        font-size: 13px;
-        padding: 6px 12px;
+    .status-pill {
+        padding: 8px 14px;
         border-radius: 999px;
+        background: rgba(59, 130, 246, 0.2);
         border: 1px solid var(--accent);
-        background: rgba(37, 99, 235, 0.15);
+        font-size: 13px;
     }
 
     main {
-        max-width: 1200px;
+        max-width: 1400px;
         margin: 0 auto;
-        padding: 20px 16px 40px;
-    }
-
-    .top-row {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 16px;
-        margin-bottom: 16px;
-    }
-
-    .case-ref-card,
-    .supervisor-card {
-        flex: 1 1 260px;
-        background: var(--card);
-        border-radius: 16px;
-        border: 1px solid var(--border);
-        padding: 14px 16px;
-    }
-
-    .case-ref-title {
-        font-size: 13px;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-        color: var(--text-muted);
-        margin-bottom: 4px;
-    }
-
-    .case-ref-value {
-        font-size: 16px;
-        font-weight: 600;
-    }
-
-    .supervisor-card {
-        border-color: #facc15;
-        background: rgba(250, 204, 21, 0.08);
-        color: #facc15;
-        font-size: 13px;
-    }
-
-    .layout {
+        padding: 20px;
         display: grid;
-        grid-template-columns: minmax(220px, 260px) minmax(0, 1fr);
-        gap: 16px;
+        grid-template-columns: 260px 1fr;
+        gap: 20px;
     }
 
     @media (max-width: 900px) {
-        .layout {
+        main {
             grid-template-columns: 1fr;
         }
     }
 
     /* NAV */
-    .nav-card {
-        background: var(--card);
-        border-radius: 16px;
+    .nav {
+        background: var(--nav);
         border: 1px solid var(--border);
-        padding: 14px;
+        border-radius: 14px;
+        padding: 16px;
     }
 
     .nav-title {
         font-size: 13px;
         text-transform: uppercase;
         letter-spacing: 0.08em;
-        color: var(--text-muted);
-        margin-bottom: 10px;
+        color: var(--muted);
+        margin-bottom: 12px;
     }
 
-    .nav-buttons {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-    }
-
-    .nav-button {
+    .nav button {
         width: 100%;
-        padding: 10px 12px;
-        border-radius: 999px;
+        padding: 12px 14px;
+        border-radius: 10px;
+        background: var(--panel);
         border: 1px solid var(--border);
-        background: #020617;
-        color: var(--text-main);
+        color: var(--text);
         font-size: 14px;
         text-align: left;
         cursor: pointer;
+        margin-bottom: 8px;
     }
 
-    .nav-button span {
-        display: block;
-        font-size: 11px;
-        color: var(--text-muted);
-    }
-
-    .nav-button.active {
+    .nav button.active {
         background: var(--accent);
         border-color: var(--accent-soft);
         color: #fff;
     }
 
-    .nav-button.active span {
-        color: #bfdbfe;
-    }
-
     /* PANELS */
     .panel {
-        background: var(--card);
-        border-radius: 16px;
+        background: var(--panel);
         border: 1px solid var(--border);
-        padding: 18px 18px 20px;
+        border-radius: 16px;
+        padding: 20px;
         display: none;
     }
 
@@ -199,44 +144,39 @@
         display: block;
     }
 
-    .panel-header {
-        margin-bottom: 14px;
-    }
-
     .panel-title {
-        font-size: 17px;
+        font-size: 18px;
         font-weight: 600;
+        margin-bottom: 6px;
     }
 
     .panel-sub {
         font-size: 12px;
-        color: var(--text-muted);
+        color: var(--muted);
+        margin-bottom: 16px;
     }
 
     .grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        gap: 12px;
+        gap: 14px;
     }
 
     label {
         font-size: 12px;
+        color: var(--muted);
         text-transform: uppercase;
-        letter-spacing: 0.06em;
-        color: var(--text-muted);
         margin-bottom: 4px;
         display: block;
     }
 
-    input,
-    textarea,
-    select {
+    input, textarea, select {
         width: 100%;
-        padding: 9px 11px;
+        padding: 10px 12px;
         border-radius: 10px;
         border: 1px solid var(--border);
-        background: #020617;
-        color: var(--text-main);
+        background: #0b0f14;
+        color: var(--text);
         font-size: 14px;
     }
 
@@ -245,33 +185,31 @@
         resize: vertical;
     }
 
-    input:focus,
-    textarea:focus,
-    select:focus {
+    input:focus, textarea:focus, select:focus {
         outline: none;
         border-color: var(--accent);
-        box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.6);
+        box-shadow: 0 0 0 1px var(--accent);
     }
 
     .actions {
         margin-top: 16px;
         display: flex;
-        gap: 10px;
         justify-content: flex-end;
+        gap: 10px;
     }
 
     .btn {
         padding: 10px 16px;
         border-radius: 999px;
-        border: none;
         font-size: 14px;
         font-weight: 600;
         cursor: pointer;
+        border: none;
     }
 
     .btn-secondary {
-        background: #020617;
-        color: var(--text-main);
+        background: #0b0f14;
+        color: var(--text);
         border: 1px solid var(--border);
     }
 
@@ -291,14 +229,7 @@
     }
 
     .status-error {
-        color: var(--danger);
-    }
-
-    footer {
-        padding: 10px 16px;
-        font-size: 11px;
-        color: var(--text-muted);
-        text-align: right;
+        color: var(--error);
     }
 </style>
 </head>
@@ -309,301 +240,147 @@
     <div class="brand">
         <div class="brand-logo">MP</div>
         <div>
-            <div class="brand-text-main">Metropolitan Police – Logging Centre</div>
-            <div class="brand-text-sub">Operational logging interface · Training / Simulation</div>
+            <div class="brand-title">Metropolitan Police Logging Centre</div>
+            <div class="brand-sub">Operational logging interface · V2 (2026)</div>
         </div>
     </div>
-    <div class="header-status">
-        Touchscreen ready · Webhook logging enabled
-    </div>
+    <div class="status-pill">Touchscreen ready · Enhanced embed mode</div>
 </header>
 
 <main>
-    <div class="top-row">
-        <div class="case-ref-card">
-            <div class="case-ref-title">Case reference</div>
-            <div class="case-ref-value" id="caseRef"></div>
-        </div>
-        <div class="supervisor-card">
-            Serious injury, use of force, or critical incidents must be notified to a supervisor.
-        </div>
+    <!-- NAV -->
+    <div class="nav">
+        <div class="nav-title">Sections</div>
+        <button class="active" data-target="polcol">POLCOL Report</button>
+        <button data-target="stopsearch">Stop & Search</button>
+        <button data-target="useforce">Use of Force</button>
+        <button data-target="call999">999 Call Report</button>
     </div>
 
-    <div class="layout">
-        <!-- NAV -->
-        <div class="nav-card">
-            <div class="nav-title">Sections</div>
-            <div class="nav-buttons">
-                <button class="nav-button active" data-target="polcol">
-                    POLCOL Report
-                    <span>Collision / vehicle incident logging</span>
-                </button>
-                <button class="nav-button" data-target="stopsearch">
-                    Stop & Search
-                    <span>Search grounds, items found, outcome</span>
-                </button>
-                <button class="nav-button" data-target="useforce">
-                    Use of Force
-                    <span>Tactical options and outcomes</span>
-                </button>
-                <button class="nav-button" data-target="call999">
-                    999 Call Report
-                    <span>Emergency call attendance log</span>
-                </button>
-            </div>
+    <!-- PANELS -->
+    <div>
+
+        <!-- POLCOL -->
+        <div id="polcol" class="panel active">
+            <div class="panel-title">POLCOL Report</div>
+            <div class="panel-sub">Collision / vehicle incident report</div>
+
+            <form id="form-polcol">
+                <div class="grid">
+                    <div><label>Date / Time</label><input id="polcol_datetime" type="datetime-local"></div>
+                    <div><label>Location</label><input id="polcol_location"></div>
+                    <div><label>Officer(s)</label><textarea id="polcol_officers"></textarea></div>
+                    <div><label>Police Vehicle</label><textarea id="polcol_police_vehicle"></textarea></div>
+                    <div><label>Other Vehicle(s)</label><textarea id="polcol_other_vehicles"></textarea></div>
+                    <div><label>Injuries</label>
+                        <select id="polcol_injuries"><option>None</option><option>Minor</option><option>Serious</option></select>
+                    </div>
+                    <div><label>Damage</label><textarea id="polcol_damage"></textarea></div>
+                    <div><label>Summary</label><textarea id="polcol_summary"></textarea></div>
+                    <div><label>Witnesses</label><textarea id="polcol_witnesses"></textarea></div>
+                    <div><label>Body-Worn Video</label>
+                        <select id="polcol_bwv"><option>Yes</option><option>No</option></select>
+                    </div>
+                    <div><label>Road Conditions</label>
+                        <select id="polcol_road"><option>Dry</option><option>Wet</option><option>Icy</option></select>
+                    </div>
+                    <div><label>Weather Conditions</label>
+                        <select id="polcol_weather"><option>Clear</option><option>Rain</option><option>Fog</option></select>
+                    </div>
+                    <div><label>Actions Taken</label><textarea id="polcol_actions"></textarea></div>
+                    <div><label>Reporting Officer</label><textarea id="polcol_reporting"></textarea></div>
+                </div>
+
+                <div class="actions">
+                    <button type="reset" class="btn btn-secondary">Clear</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
         </div>
 
-        <!-- PANELS -->
-        <div>
-            <!-- POLCOL -->
-            <div id="polcol" class="panel active">
-                <div class="panel-header">
-                    <div class="panel-title">POLCOL Report</div>
-                    <div class="panel-sub">Collision / vehicle incident report</div>
-                </div>
-                <form id="form-polcol">
-                    <div class="grid">
-                        <div>
-                            <label>Date / Time</label>
-                            <input id="polcol_datetime" type="datetime-local">
-                        </div>
-                        <div>
-                            <label>Location</label>
-                            <input id="polcol_location">
-                        </div>
-                        <div>
-                            <label>Officer(s) Involved</label>
-                            <textarea id="polcol_officers" placeholder="Name, Collar Number"></textarea>
-                        </div>
-                        <div>
-                            <label>Police Vehicle</label>
-                            <textarea id="polcol_police_vehicle" placeholder="Callsign / VRN"></textarea>
-                        </div>
-                        <div>
-                            <label>Other Vehicle(s) Involved</label>
-                            <textarea id="polcol_other_vehicles" placeholder="Description / Registration"></textarea>
-                        </div>
-                        <div>
-                            <label>Injuries</label>
-                            <select id="polcol_injuries">
-                                <option>None</option>
-                                <option>Minor</option>
-                                <option>Serious</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label>Damage</label>
-                            <textarea id="polcol_damage"></textarea>
-                        </div>
-                        <div>
-                            <label>Summary of Incident</label>
-                            <textarea id="polcol_summary"></textarea>
-                        </div>
-                        <div>
-                            <label>Witnesses</label>
-                            <textarea id="polcol_witnesses" placeholder="Names or None"></textarea>
-                        </div>
-                        <div>
-                            <label>Body-Worn Video Available</label>
-                            <select id="polcol_bwv">
-                                <option>Yes</option>
-                                <option>No</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label>Road Conditions</label>
-                            <select id="polcol_road">
-                                <option>Dry</option>
-                                <option>Wet</option>
-                                <option>Icy</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label>Weather Conditions</label>
-                            <select id="polcol_weather">
-                                <option>Clear</option>
-                                <option>Rain</option>
-                                <option>Fog</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label>Actions Taken</label>
-                            <textarea id="polcol_actions" placeholder="First aid provided. Vehicle recovered. Supervisor informed. Scene preserved."></textarea>
-                        </div>
-                        <div>
-                            <label>Reporting Officer</label>
-                            <textarea id="polcol_reporting" placeholder="Name and Rank"></textarea>
-                        </div>
-                    </div>
-                    <div class="actions">
-                        <button type="reset" class="btn btn-secondary">Clear</button>
-                        <button type="submit" class="btn btn-primary">Submit to Discord</button>
-                    </div>
-                </form>
-            </div>
+        <!-- STOP & SEARCH -->
+        <div id="stopsearch" class="panel">
+            <div class="panel-title">Stop & Search Log</div>
+            <div class="panel-sub">Search grounds, items found, outcome</div>
 
-            <!-- Stop & Search -->
-            <div id="stopsearch" class="panel">
-                <div class="panel-header">
-                    <div class="panel-title">Stop & Search Log</div>
-                    <div class="panel-sub">Search grounds, items found, outcome</div>
+            <form id="form-stopsearch">
+                <div class="grid">
+                    <div><label>Officer Name(s)</label><input id="ss_names"></div>
+                    <div><label>Officer Collar(s)</label><input id="ss_collars"></div>
+                    <div><label>Time Logged</label><input type="time" id="ss_time"></div>
+                    <div><label>Reason</label><textarea id="ss_reason"></textarea></div>
+                    <div><label>Person Searched</label><input id="ss_subject"></div>
+                    <div><label>Grounds</label><textarea id="ss_grounds"></textarea></div>
+                    <div><label>Items Found</label><textarea id="ss_items"></textarea></div>
+                    <div><label>Outcome</label><textarea id="ss_outcome"></textarea></div>
                 </div>
-                <form id="form-stopsearch">
-                    <div class="grid">
-                        <div>
-                            <label>Officer Name(s)</label>
-                            <input id="ss_names">
-                        </div>
-                        <div>
-                            <label>Officer Collar(s)</label>
-                            <input id="ss_collars">
-                        </div>
-                        <div>
-                            <label>Time Logged</label>
-                            <input type="time" id="ss_time">
-                        </div>
-                        <div>
-                            <label>Reason for Search</label>
-                            <textarea id="ss_reason"></textarea>
-                        </div>
-                        <div>
-                            <label>Person Searched</label>
-                            <input id="ss_subject">
-                        </div>
-                        <div>
-                            <label>Grounds</label>
-                            <textarea id="ss_grounds"></textarea>
-                        </div>
-                        <div>
-                            <label>Items Found</label>
-                            <textarea id="ss_items"></textarea>
-                        </div>
-                        <div>
-                            <label>Outcome</label>
-                            <textarea id="ss_outcome"></textarea>
-                        </div>
-                    </div>
-                    <div class="actions">
-                        <button type="reset" class="btn btn-secondary">Clear</button>
-                        <button type="submit" class="btn btn-primary">Submit to Discord</button>
-                    </div>
-                </form>
-            </div>
 
-            <!-- Use of Force -->
-            <div id="useforce" class="panel">
-                <div class="panel-header">
-                    <div class="panel-title">Use of Force Report</div>
-                    <div class="panel-sub">Tactical options and outcomes</div>
+                <div class="actions">
+                    <button type="reset" class="btn btn-secondary">Clear</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
-                <form id="form-useforce">
-                    <div class="grid">
-                        <div>
-                            <label>Item Used</label>
-                            <input id="uf_item">
-                        </div>
-                        <div>
-                            <label>Reason</label>
-                            <textarea id="uf_reason"></textarea>
-                        </div>
-                        <div>
-                            <label>Officer Collar</label>
-                            <input id="uf_collar">
-                        </div>
-                        <div>
-                            <label>Officer Name</label>
-                            <input id="uf_name">
-                        </div>
-                        <div>
-                            <label>Time Logged</label>
-                            <input type="time" id="uf_time">
-                        </div>
-                        <div>
-                            <label>Outcome</label>
-                            <textarea id="uf_outcome"></textarea>
-                        </div>
-                    </div>
-                    <div class="actions">
-                        <button type="reset" class="btn btn-secondary">Clear</button>
-                        <button type="submit" class="btn btn-primary">Submit to Discord</button>
-                    </div>
-                </form>
-            </div>
-
-            <!-- 999 Call -->
-            <div id="call999" class="panel">
-                <div class="panel-header">
-                    <div class="panel-title">999 Call Report</div>
-                    <div class="panel-sub">Emergency call attendance log</div>
-                </div>
-                <form id="form-call999">
-                    <div class="grid">
-                        <div>
-                            <label>Time Logged</label>
-                            <input type="time" id="c_time">
-                        </div>
-                        <div>
-                            <label>Reason for Call</label>
-                            <textarea id="c_reason"></textarea>
-                        </div>
-                        <div>
-                            <label>Outcome</label>
-                            <textarea id="c_outcome"></textarea>
-                        </div>
-                        <div>
-                            <label>Officer Name(s)</label>
-                            <input id="c_names">
-                        </div>
-                        <div>
-                            <label>Officer Collar(s)</label>
-                            <input id="c_collars">
-                        </div>
-                        <div>
-                            <label>Outcome of Car</label>
-                            <textarea id="c_vehicle"></textarea>
-                        </div>
-                    </div>
-                    <div class="actions">
-                        <button type="reset" class="btn btn-secondary">Clear</button>
-                        <button type="submit" class="btn btn-primary">Submit to Discord</button>
-                    </div>
-                </form>
-            </div>
-
-            <div id="status"></div>
+            </form>
         </div>
+
+        <!-- USE OF FORCE -->
+        <div id="useforce" class="panel">
+            <div class="panel-title">Use of Force Report</div>
+            <div class="panel-sub">Tactical options and outcomes</div>
+
+            <form id="form-useforce">
+                <div class="grid">
+                    <div><label>Item Used</label><input id="uf_item"></div>
+                    <div><label>Reason</label><textarea id="uf_reason"></textarea></div>
+                    <div><label>Officer Collar</label><input id="uf_collar"></div>
+                    <div><label>Officer Name</label><input id="uf_name"></div>
+                    <div><label>Time Logged</label><input type="time" id="uf_time"></div>
+                    <div><label>Outcome</label><textarea id="uf_outcome"></textarea></div>
+                </div>
+
+                <div class="actions">
+                    <button type="reset" class="btn btn-secondary">Clear</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- 999 CALL -->
+        <div id="call999" class="panel">
+            <div class="panel-title">999 Call Report</div>
+            <div class="panel-sub">Emergency call attendance log</div>
+
+            <form id="form-call999">
+                <div class="grid">
+                    <div><label>Time Logged</label><input type="time" id="c_time"></div>
+                    <div><label>Reason for Call</label><textarea id="c_reason"></textarea></div>
+                    <div><label>Outcome</label><textarea id="c_outcome"></textarea></div>
+                    <div><label>Officer Name(s)</label><input id="c_names"></div>
+                    <div><label>Officer Collar(s)</label><input id="c_collars"></div>
+                    <div><label>Outcome of Car</label><textarea id="c_vehicle"></textarea></div>
+                </div>
+
+                <div class="actions">
+                    <button type="reset" class="btn btn-secondary">Clear</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+
+        <div id="status"></div>
     </div>
 </main>
-
-<footer>
-    This interface is a training simulation and not an official Metropolitan Police system.
-</footer>
 
 <script>
 const WEBHOOK = "https://discord.com/api/webhooks/1520860615214891298/q1lJ4Y3cSxz0WiGVUHPgSZO8IfwZP_ctxhtkL4K3zw41hFGRuKHlUik5v0VXEtAm8mnf";
 
-const caseRefEl = document.getElementById("caseRef");
 const statusEl = document.getElementById("status");
 
-/* Case reference generator */
-function generateCaseRef() {
-    const now = new Date();
-    const ref = "MET-" +
-        now.getFullYear().toString().slice(-2) +
-        (now.getMonth() + 1).toString().padStart(2, "0") +
-        now.getDate().toString().padStart(2, "0") +
-        "-" +
-        Math.floor(Math.random() * 90000 + 10000);
-    caseRefEl.textContent = ref;
-}
-generateCaseRef();
-
-/* Navigation switching */
-document.querySelectorAll(".nav-button").forEach(btn => {
+/* Navigation */
+document.querySelectorAll(".nav button").forEach(btn => {
     btn.addEventListener("click", () => {
         const target = btn.dataset.target;
 
-        document.querySelectorAll(".nav-button").forEach(b => b.classList.remove("active"));
+        document.querySelectorAll(".nav button").forEach(b => b.classList.remove("active"));
         btn.classList.add("active");
 
         document.querySelectorAll(".panel").forEach(p => {
@@ -614,20 +391,30 @@ document.querySelectorAll(".nav-button").forEach(btn => {
     });
 });
 
+/* Embed builder */
+function buildEmbed(title, fields) {
+    return {
+        embeds: [
+            {
+                title: title,
+                color: 39423,
+                timestamp: new Date().toISOString(),
+                fields: Object.entries(fields).map(([name, value]) => ({
+                    name,
+                    value: value || "None",
+                    inline: false
+                })),
+                footer: {
+                    text: "Metropolitan Police Logging Centre · V2"
+                }
+            }
+        ]
+    };
+}
+
 /* Send to Discord */
-async function sendToDiscord(title, fields) {
-    const lines = [
-        `**${title}**`,
-        `**Case Reference:** ${caseRefEl.textContent}`
-    ];
-
-    for (const [label, value] of Object.entries(fields)) {
-        if (value && String(value).trim() !== "") {
-            lines.push(`**${label}:** ${value}`);
-        }
-    }
-
-    const payload = { content: lines.join("\n") };
+async function sendEmbed(title, fields) {
+    const payload = buildEmbed(title, fields);
 
     const res = await fetch(WEBHOOK, {
         method: "POST",
@@ -635,9 +422,7 @@ async function sendToDiscord(title, fields) {
         body: JSON.stringify(payload)
     });
 
-    if (!res.ok) {
-        throw new Error(`Discord responded with ${res.status}`);
-    }
+    if (!res.ok) throw new Error("Webhook error");
 }
 
 /* Bind forms */
@@ -649,20 +434,17 @@ function bindForm(formId, title, fieldMap) {
         statusEl.className = "";
 
         const fields = {};
-        for (const [label, inputId] of Object.entries(fieldMap)) {
-            const el = document.getElementById(inputId);
-            fields[label] = el ? el.value : "";
+        for (const [label, id] of Object.entries(fieldMap)) {
+            fields[label] = document.getElementById(id).value;
         }
 
         try {
-            await sendToDiscord(title, fields);
-            statusEl.textContent = "Submitted to Discord successfully.";
+            await sendEmbed(title, fields);
+            statusEl.textContent = "Submitted successfully.";
             statusEl.className = "status-ok";
             form.reset();
-            generateCaseRef();
-        } catch (err) {
-            console.error(err);
-            statusEl.textContent = "Failed to submit to Discord. Check webhook / connection.";
+        } catch {
+            statusEl.textContent = "Failed to submit.";
             statusEl.className = "status-error";
         }
     });
@@ -672,14 +454,14 @@ function bindForm(formId, title, fieldMap) {
 bindForm("form-polcol", "POLCOL Report", {
     "Date/Time": "polcol_datetime",
     "Location": "polcol_location",
-    "Officer(s) Involved": "polcol_officers",
+    "Officer(s)": "polcol_officers",
     "Police Vehicle": "polcol_police_vehicle",
-    "Other Vehicle(s) Involved": "polcol_other_vehicles",
+    "Other Vehicle(s)": "polcol_other_vehicles",
     "Injuries": "polcol_injuries",
     "Damage": "polcol_damage",
-    "Summary of Incident": "polcol_summary",
+    "Summary": "polcol_summary",
     "Witnesses": "polcol_witnesses",
-    "Body-Worn Video Available": "polcol_bwv",
+    "Body-Worn Video": "polcol_bwv",
     "Road Conditions": "polcol_road",
     "Weather Conditions": "polcol_weather",
     "Actions Taken": "polcol_actions",
@@ -690,7 +472,7 @@ bindForm("form-stopsearch", "Stop & Search Log", {
     "Officer Name(s)": "ss_names",
     "Officer Collar(s)": "ss_collars",
     "Time Logged": "ss_time",
-    "Reason for Search": "ss_reason",
+    "Reason": "ss_reason",
     "Person Searched": "ss_subject",
     "Grounds": "ss_grounds",
     "Items Found": "ss_items",
